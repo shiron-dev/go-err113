@@ -13,7 +13,7 @@ import (
 // NewAnalyzer creates a new analysis.Analyzer instance tuned to run err113 checks.
 func NewAnalyzer() *analysis.Analyzer {
 	return &analysis.Analyzer{
-		Name: "err113",
+		Name: "shironerr113",
 		Doc:  "checks the error handling rules according to the Go 1.13 new error type",
 		Run:  run,
 	}
