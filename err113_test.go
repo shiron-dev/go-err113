@@ -3,7 +3,7 @@ package err113_test
 import (
 	"testing"
 
-	"github.com/Djarvur/go-err113"
+	"github.com/shiron-dev/go-err113"
 	"golang.org/x/tools/go/analysis/analysistest"
 )
 

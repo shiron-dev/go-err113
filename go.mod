@@ -1,4 +1,4 @@
-module github.com/Djarvur/go-err113
+module github.com/shiron-dev/go-err113
 
 go 1.13
 
