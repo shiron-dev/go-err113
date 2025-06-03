@@ -11,6 +11,7 @@ import (
 var methods2check = map[string]map[string]func(*ast.CallExpr, *types.Info) bool{ // nolint: gochecknoglobals
 	"errors": {"New": justTrue},
 	"fmt":    {"Errorf": checkWrap},
+	"status": {"Error": justTrue, "Errorf": justTrue},
 }
 
 func justTrue(*ast.CallExpr, *types.Info) bool {
