@@ -3,6 +3,7 @@ package err113
 
 import (
 	"bytes"
+	"fmt" // デバッグ用にfmtをインポート
 	"go/ast"
 	"go/printer"
 	"go/token"
@@ -20,12 +21,29 @@ func NewAnalyzer() *analysis.Analyzer {
 }
 
 func run(pass *analysis.Pass) (interface{}, error) {
+	// ---ここからデバッグログ追加---
+	fmt.Printf("[DEBUG shironerr113] Running analyzer for package: %s\n", pass.Pkg.Path())
+	if pass.TypesInfo == nil {
+		fmt.Printf("[DEBUG shironerr113] pass.TypesInfo is nil for package: %s\n", pass.Pkg.Path())
+	} else {
+		fmt.Printf("[DEBUG shironerr113] pass.TypesInfo is NOT nil for package: %s\n", pass.Pkg.Path())
+	}
+	// ---ここまでデバッグログ追加---
+
 	for _, file := range pass.Files {
+		// ---ここからデバッグログ追加---
+		fmt.Printf("[DEBUG shironerr113] Analyzing file: %s\n", pass.Fset.Position(file.Pos()).Filename)
+		// ---ここまでデバッグログ追加---
 		tlds := enumerateFileDecls(file)
 
 		ast.Inspect(
 			file,
 			func(n ast.Node) bool {
+				// ---ここからデバッグログ追加---
+				if n != nil {
+					fmt.Printf("[DEBUG shironerr113] Inspecting node: %T at %s\n", n, pass.Fset.Position(n.Pos()))
+				}
+				// ---ここまでデバッグログ追加---
 				return inspectComparision(pass, n) &&
 					inspectDefinition(pass, tlds, n)
 			},
